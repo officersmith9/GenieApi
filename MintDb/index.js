@@ -26,6 +26,7 @@ class MintDb {
 
   select(table, req = {}, idxInEachRecord = false) {
     const records = this.db[table] || [];
+    console.log(req.id);
     if (req === {}) {
       return records;
     }
@@ -36,8 +37,9 @@ class MintDb {
 
     records.forEach((record, recordIdx) => {
       let keep = true;
+      console.log(record);
       keys.forEach((key, keyIdx) => {
-        if (record[key] !== values[keyIdx]) {
+        if (record[key] !== values[keyIdx].replace("GMT 0000", "GMT+0000")) {
           keep = false;
         }
       });
