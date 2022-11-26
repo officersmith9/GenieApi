@@ -1,22 +1,36 @@
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const express = require("express");
+const MintDb = require("./MintDb/index.js");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+const app = express();
+const cors = require("cors");
+const db = new MintDb();
 
-var app = express();
+app.options("*", cors());
 
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-
-var listener = app.listen(8080, function() {
-  console.log("Listening on port " + listener.address().port);
+/* MintDB Users CRUD */
+app.get("/users", (req, res) => {
+  res.json(db.select("users", req.query));
 });
+
+app.get("/users/new", (req, res) => {
+  db.insert("users", req.query);
+  res.json({ res: true });
+});
+
+app.get("/users/delete", (req, res) => {
+  db.delete("users", req.query);
+  res.json({ res: true });
+});
+
+app.get("/users/update", (req, res) => {
+  db.update("users", req.query, { name: "tom" });
+  res.json({ res: true });
+});
+
+/* Root Routes */
+
+app.get("/", (req, res) => {
+  res.json({ res: "Hi" });
+});
+
+app.listen(5100);
