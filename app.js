@@ -12,17 +12,17 @@ app.get("/users", (req, res) => {
   res.json(db.select("users", req.query));
 });
 
-app.get("/users/new", (req, res) => {
+app.post("/users/new", (req, res) => {
   db.insert("users", req.query);
   res.json({ res: true });
 });
 
-app.get("/users/delete", (req, res) => {
+app.delete("/users/delete", (req, res) => {
   db.delete("users", req.query);
   res.json({ res: true });
 });
 
-app.get("/users/update", (req, res) => {
+app.patch("/users/update", (req, res) => {
   db.update("users", req.query, { name: "tom" });
   res.json({ res: true });
 });

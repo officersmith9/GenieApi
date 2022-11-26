@@ -2,7 +2,7 @@ const fs = require("fs");
 
 class MintDb {
   constructor() {
-    this.recordsDbName = "records.bin";
+    this.recordsDbName = "records.mint";
 
     this.getDb();
   }
@@ -74,7 +74,7 @@ class MintDb {
     records.forEach((record) => {
       this.db[table][record.idx] = {
         ...record,
-        ...toMake
+        ...toMake,
       };
     });
 
@@ -127,7 +127,7 @@ class MintDb {
   }
 
   appendFile(name, content = "") {
-    fs.appendFile(`./MintDb/${name}`, content, (err) => {
+    fs.appendFile(`MintDb/${name}`, content, (err) => {
       if (err) {
         console.error(err);
       }
@@ -135,7 +135,7 @@ class MintDb {
   }
 
   writeFile(name, content = "") {
-    fs.writeFile(`./MintDb/${name}`, content, (err) => {
+    fs.writeFile(`MintDb/${name}`, content, (err) => {
       if (err) {
         console.error(err);
       }
