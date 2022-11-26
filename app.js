@@ -13,8 +13,8 @@ app.get("/users", (req, res) => {
 });
 
 app.post("/users/new", (req, res) => {
-  db.insert("users", req.query);
-  res.json({ res: true });
+  const user_id = db.insert("users", req.query);
+  res.json({ id: user_id });
 });
 
 app.delete("/users/delete", (req, res) => {

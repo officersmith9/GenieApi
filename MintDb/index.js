@@ -120,6 +120,8 @@ class MintDb {
       this.recordsDbName,
       `${this.encode(`${table}*:*${JSON.stringify(record)}`)}\n`
     );
+
+    return record.id;
   }
 
   getFile(name) {
