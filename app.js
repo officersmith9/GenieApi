@@ -5,9 +5,11 @@ const app = express();
 const cors = require("cors");
 const db = new MintDb();
 
-app.options("*", cors({
-  origin: "*"
-}));
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 /* MintDB Users CRUD */
 app.get("/users", (req, res) => {
